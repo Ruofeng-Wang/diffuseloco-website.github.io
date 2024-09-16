@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets">
+  <meta name="keywords" content="Humanoid, Hardware Design, Reinforcement Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.ico">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+<section class="hero is-link is-fullheight video" style="overflow: hidden; position:relative;">
+  <div class="hero-video" style="height: 100%; width: 177.77777778vh; min-width: 100%;min-height: 56.25vw;">
+    <video playsinline autoplay muted loop>
+      <source src=" ./static/videos/a_opening.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-video is-hidden-tablet is-inline-block-mobile"
+    style="height: 154.28571428vw; width: 100%; min-width:64.81481481vh;min-height:100%;">
+    <video playsinline autoplay muted loop>
+      <source src=" ./static/videos/a_opening_mobile.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="overlay"></div>
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head is-hidden-mobile">
+    <header class="navbar">
+      <div class="container is-size-5">
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item pl-4 pr-4" href="./static/berkeley_humanoid.pdf">
+              <span class="icon" style="margin-right:5px;">
+                <i class="fas fa-file-pdf"></i>
+              </span>
+              <span>Paper</span>
+            </a>
+            <a class="navbar-item  pl-4 pr-4" href="https://arxiv.org/abs/2407.21781">
+              <span class="icon" style="margin-right:5px;">
+                <i class="ai ai-arxiv"></i>
+              </span>
+              <span>arXiv</span> </a>
+            <a href="https://youtu.be/8pR1HE-wMHw" class="navbar-item  pl-4 pr-4">
+              <span class="icon" style="margin-right:5px;">
+                <i class="fab fa-youtube"></i>
+              </span>
+              <span>Video</span> </a>
+            <span class="navbar-item  pl-4 pr-4">
+              <a href="https://github.com/xx/xx" class="button is-inverted is-large">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code Todo</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-1 publication-title is-size-1-mobile" style="font-size: 9rem;">
+        DiffuseLoco
+      </h1>
+      <h1 class="subtitle is-1 publication-title is-size-4-mobile" style="font-size: 3.5rem;">
+        Real-Time Legged Locomotion Control with Diffusion from Offline Datasets</h1>
+      <p style="font-size: 1.5rem;">
+        <a href="">Xiaoyu Huang</a>, 
+        <a href="">Yufeng Chi</a>, 
+        <a href="">Ruofeng Wang</a>, 
+        <a href="">Zhongyu Li</a>, 
+        <a href="">Xue Bin Peng</a>,
+        <a href="">Sophia Shao</a>,
+        <a href="">Borivoje Nikolic</a>,
+        <a href="https://hybrid-robotics.berkeley.edu/koushil/">Koushil Sreenath</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <!-- <div class="hero-foot is-hidden-mobile">
+    <nav class="tabs is-boxed is-fullwidth is-size-5">
+      <ul>
+        <li><a href="#todo">Design (todo)</a></li>
+        <li><a href="#todo">Walking (todo)</a></li>
+        <li><a href="#todo">Hopping (todo)</a></li>
+        <li><a href="#todo">Various Terrains (todo)</a></li>
+        <li><a href="#todo">Slope (todo)</a></li>
+        <li><a href="#todo">Stairs (todo)</a></li>
+        <li><a href="#todo">Long Distance (todo)</a></li>
+        <li><a href="#todo">Hardware Reliability (todo)</a></li>
+      </ul>
+    </nav>
+  </div> -->
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-2">Abstract</h2>
+        <div class="content has-text-justified">
+          <p class="abstract-text">
+            This work introduces <strong>DiffuseLoco</strong>, a framework for training multi-skill diffusion-based policies for dynamic legged locomotion from offline datasets, 
+            enabling real-time control of diverse skills on robots in the real world. Offline learning at scale has led to breakthroughs in computer vision, 
+            natural language processing, and robotic manipulation domains. However, scaling up learning for legged robot locomotion, especially with multiple 
+            skills in a single policy, presents significant challenges for prior online reinforcement learning methods. To address this challenge, 
+            we propose a novel, scalable framework that leverages diffusion models to directly learn from offline multimodal datasets with a diverse set of locomotion skills. 
+            With design choices tailored for real-time control in dynamical systems, including receding horizon control and delayed inputs, 
+            DiffuseLoco is capable of reproducing multimodality in performing various locomotion skills, zero-shot transfer to real quadrupedal robots, 
+            and it can be deployed on edge computing devices. Furthermore, DiffuseLoco demonstrates free transitions between skills and robustness against environmental variations. 
+            Through extensive benchmarking in real-world experiments, DiffuseLoco exhibits better stability and velocity tracking performance compared to prior reinforcement learning and non-diffusion-based behavior cloning baselines. 
+            The design choices are validated via comprehensive ablation studies. This work opens new possibilities for scaling up learning-based legged locomotion controllers through the scaling of large, 
+            expressive models and diverse offline datasets.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-2">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/8pR1HE-wMHw?si=1MkB5rL_b4hrkIfQ"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .abstract-text { font-size: 1.5rem; }
+  @media (max-width: 767px) { .abstract-text { font-size: 0.9rem; } }
+</style>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Design</h2>
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/design_robot.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/design_actuator.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Dynamic Walking</h2>
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/walk_straight.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/walk_sideward.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Dynamic Hopping</h2>
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/hopping_double.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/hopping_single.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Various Terrains</h2>
+    <div id="results-carousel" class="carousel results-carousel">
+      <div class="item item-steve">
+        <div class="column is-full-width is-centered has-text-centered">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/uneven.mp4"
+          style="border-radius: 10px; margin-bottom: 15px; "></video>
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/grass.mp4"
+          style="border-radius: 10px;"></video>
+        </div>
+      </div>
+      <div class="item item-steve">
+        <div class="column is-full-width is-centered has-text-centered">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/asphalt.mp4"
+          style="border-radius: 10px; margin-bottom: 15px; "></video>
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/grass_withered.mp4"
+          style="border-radius: 10px;"></video>
+        </div>
+      </div>
+      <div class="item item-blueshirt">
+        <div class="column is-full-width is-centered has-text-centered">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/red_brick.mp4"
+          style="border-radius: 10px; margin-bottom: 15px; "></video>
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/stone_brick.mp4"
+          style="border-radius: 10px;"></video>
+        </div>
+      </div>
+      <div class="item item-coffee">
+        <div class="column is-full-width is-centered has-text-centered">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/running_track.mp4"
+          style="border-radius: 10px; margin-bottom: 15px; "></video>
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/bridge_long.mp4"
+          style="border-radius: 10px;"></video>
+        </div>
+      </div>
+      <div class="item item-toby">
+        <div class="column is-full-width is-centered has-text-centered">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/bridge_short.mp4"
+          style="border-radius: 10px; margin-bottom: 15px; "></video>
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/indoor.mp4"
+          style="border-radius: 10px;"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Robustness to Perturbations and Fast Resets</h2>
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/reset.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/reset2.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Slope</h2>
+    <div id="results-carousel" class="carousel results-carousel">
+      <div class="item item-steve">
+        <div class="column is-full-width is-centered has-text-centered">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/uphill_backward_2.mp4"
+          style="border-radius: 10px; margin-bottom: 15px; "></video>
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/downhill_backward_1.mp4"
+          style="border-radius: 10px;"></video>
+        </div>
+      </div>
+      <div class="item item-steve">
+        <div class="column is-full-width is-centered has-text-centered">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/uphill_forward.mp4"
+          style="border-radius: 10px; margin-bottom: 15px; "></video>
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/downhill_forward.mp4"
+          style="border-radius: 10px;"></video>
+        </div>
+      </div>
+      <div class="item item-blueshirt">
+        <div class="column is-full-width is-centered has-text-centered">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/uphill_backward_1.mp4"
+          style="border-radius: 10px; margin-bottom: 15px; "></video>
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/downhill_backward_2.mp4"
+          style="border-radius: 10px;"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Stairs</h2>
+    <div id="results-carousel" class="carousel results-carousel">
+      <div class="item item-steve">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/stairs_quick.mp4"></video>
+      </div>
+      <div class="item item-steve">
+        <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/stairs_sideward.mp4"></video>
+      </div>
+      <div class="item item-blueshirt">
+        <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/stairs_turn.mp4"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Long Distance Walking</h2>
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered">
+        <div class="publication-video">
+          <iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube.com/embed/STbB12-oc_w?si=YeQKsK77kV_O55HU&amp;start=10"
+            title="Long Distance Walking" frameborder="0"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+      <div class="column is-full-width is-centered">
+        <div class="publication-video">
+          <iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube.com/embed/Z2Bzslmu7DA?si=OzfDgsdDsA5WSBkC&amp;start=10"
+            title="Long Distance Walking" frameborder="0"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Training in Simulation (Isaac Lab)</h2>
+    <div class="columns is-centered">
+      <div class="column is-three-fifths is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/training.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Hardware Reliability</h2>
+    <p style="font-size: 1.5rem; text-align: center;">
+      Functional after each of these falls.
+    </p>
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/fall_1.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/fall_2.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/fall_old_1.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay loop muted playsinline src="./static/videos/fall_old_2.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-2" style="text-align: center;">Failure</h2>
+    <div id="results-carousel" class="carousel results-carousel">
+      <div class="item item-steve">
+          <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/failure_1.mp4"></video>
+      </div>
+      <div class="item item-steve">
+        <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/failure_2.mp4"></video>
+      </div>
+      <div class="item item-blueshirt">
+        <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/failure_3.mp4"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-2">Acknowledgement</h2>
+        <div class="content has-text-justified">
+          <p style="font-size: 1.5rem;">
+            TBD
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code> @misc{huang2024diffuselocorealtimeleggedlocomotion,
+      title={DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets}, 
+      author={Xiaoyu Huang and Yufeng Chi and Ruofeng Wang and Zhongyu Li and Xue Bin Peng and Sophia Shao and Borivoje Nikolic and Koushil Sreenath},
+      year={2024},
+      eprint={2404.19264},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2404.19264}, 
+} </code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <p>Page template borrowed from <a href="https://nerfies.github.io/"><span class="dnerf">Nerfies</span></a>.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
