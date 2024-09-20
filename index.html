@@ -2,181 +2,98 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets">
-  <meta name="keywords" content="Humanoid, Hardware Design, Reinforcement Learning">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="2">
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <meta name="description" content="DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets">
+  <meta name="keywords" content="Robotics, Diffusion Policy, Transformer, Reinforcement Learning, Imitation Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.ico">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 
+
 <body>
-
-<section class="hero is-link is-fullheight video" style="overflow: hidden; position:relative;">
-  <div class="hero-video" style="height: 100%; width: 177.77777778vh; min-width: 100%;min-height: 56.25vw;">
-    <video playsinline autoplay muted loop>
-      <source src=" ./static/videos/a_opening.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="hero-video is-hidden-tablet is-inline-block-mobile"
-    style="height: 154.28571428vw; width: 100%; min-width:64.81481481vh;min-height:100%;">
-    <video playsinline autoplay muted loop>
-      <source src=" ./static/videos/a_opening_mobile.mp4" type="video/mp4">
-    </video>
-  </div>
-  <div class="overlay"></div>
-  <!-- Hero head: will stick at the top -->
-  <div class="hero-head is-hidden-mobile">
-    <header class="navbar">
-      <div class="container is-size-5">
-        <div class="navbar-menu">
-          <div class="navbar-end">
-            <a class="navbar-item pl-4 pr-4" href="./static/berkeley_humanoid.pdf">
-              <span class="icon" style="margin-right:5px;">
-                <i class="fas fa-file-pdf"></i>
-              </span>
-              <span>Paper</span>
-            </a>
-            <a class="navbar-item  pl-4 pr-4" href="https://arxiv.org/abs/2404.19264">
-              <span class="icon" style="margin-right:5px;">
-                <i class="ai ai-arxiv"></i>
-              </span>
-              <span>arXiv</span> </a>
-            <a href="https://www.youtube.com/watch?v=JAWPT5oWID4" class="navbar-item  pl-4 pr-4">
-              <span class="icon" style="margin-right:5px;">
-                <i class="fab fa-youtube"></i>
-              </span>
-              <span>Video</span> </a>
-            <span class="navbar-item  pl-4 pr-4">
-              <a href="https://github.com/T-K-233/DiffuseLoco" class="button is-inverted is-large">
-                <span class="icon">
-                  <i class="fab fa-github"></i>
-                </span>
-                <span>Code Todo</span>
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-    </header>
+  <div class="flex flex-row justify-around bg-slate-100 py-10">
+    <a class="flex-initial w-32" href="./static/berkeley_humanoid.pdf">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline size-6 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+      </svg>Paper
+    </a>
+    <a class="flex-initial w-32" href="https://arxiv.org/abs/2404.19264">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline size-6 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0 1 18 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3 1.5 1.5 3-3.75" />
+      </svg>arXiv
+    </a>
+    <a class="flex-initial w-32" href="https://www.youtube.com/watch?v=JAWPT5oWID4">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline size-6 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+      </svg>
+      Video
+    </a>
+    <a class="flex-initial w-32" href="https://arxiv.org/abs/2404.19264">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline size-6 mr-2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+      </svg>
+      Code Todo
+    </a>
   </div>
 
-  <!-- Hero content: will be in the middle -->
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title is-1 publication-title is-size-1-mobile" style="font-size: 9rem;">
-        DiffuseLoco
-      </h1>
-      <h1 class="subtitle is-1 publication-title is-size-4-mobile" style="font-size: 3.5rem;">
-        Real-Time Legged Locomotion Control with Diffusion from Offline Datasets</h1>
-      <p style="font-size: 1.5rem;">
-        <a href="">Xiaoyu Huang</a>, 
-        <a href="">Yufeng Chi</a>, 
-        <a href="">Ruofeng Wang</a>, 
-        <a href="">Zhongyu Li</a>, 
-        <a href="">Xue Bin Peng</a>,
-        <a href="">Sophia Shao</a>,
-        <a href="">Borivoje Nikolic</a>,
-        <a href="https://hybrid-robotics.berkeley.edu/koushil/">Koushil Sreenath</a>
+  <div class="container mx-auto px-10">
+
+    <div class="mt-14 mb-16 w-full">
+      <h1 class="text-6xl text-left w-full">DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets</h1>
+      <p class="text-xl mt-8">
+        <a class="text-blue-500" href="">Xiaoyu Huang</a>,
+        <a class="text-blue-500" href="">Yufeng Chi</a>,
+        <a class="text-blue-500" href="">Ruofeng Wang</a>,
+        <a class="text-blue-500" href="">Zhongyu Li</a>,
+        <a class="text-blue-500" href="">Xue Bin Peng</a>,
+        <a class="text-blue-500" href="">Sophia Shao</a>,
+        <a class="text-blue-500" href="">Borivoje Nikolic</a>,
+        <a class="text-blue-500" href="https://hybrid-robotics.berkeley.edu/koushil/">Koushil Sreenath</a>
       </p>
     </div>
-  </div>
 
-  <!-- Hero footer: will stick at the bottom -->
-  <!-- <div class="hero-foot is-hidden-mobile">
-    <nav class="tabs is-boxed is-fullwidth is-size-5">
-      <ul>
-        <li><a href="#todo">Design (todo)</a></li>
-        <li><a href="#todo">Walking (todo)</a></li>
-        <li><a href="#todo">Hopping (todo)</a></li>
-        <li><a href="#todo">Various Terrains (todo)</a></li>
-        <li><a href="#todo">Slope (todo)</a></li>
-        <li><a href="#todo">Stairs (todo)</a></li>
-        <li><a href="#todo">Long Distance (todo)</a></li>
-        <li><a href="#todo">Hardware Reliability (todo)</a></li>
-      </ul>
-    </nav>
-  </div> -->
-</section>
+    <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/JAWPT5oWID4?si=FpP4C6uyUrG8tW-6&start=2&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen autoplay></iframe>
 
-<section class="section">
-
-  <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-2">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/8pR1HE-wMHw?si=1MkB5rL_b4hrkIfQ"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
+    <h2 class="mt-10 text-6xl py-10">Abstract</h2>
+    <div class="content has-text-justified">
+      <p class="text-2xl font-light">
+        This work introduces <strong>DiffuseLoco</strong>, a framework for training multi-skill diffusion-based policies for dynamic legged locomotion from offline datasets, 
+        enabling real-time control of diverse skills on robots in the real world. Offline learning at scale has led to breakthroughs in computer vision, 
+        natural language processing, and robotic manipulation domains. However, scaling up learning for legged robot locomotion, especially with multiple 
+        skills in a single policy, presents significant challenges for prior online reinforcement learning methods. To address this challenge, 
+        we propose a novel, scalable framework that leverages diffusion models to directly learn from offline multimodal datasets with a diverse set of locomotion skills. 
+        With design choices tailored for real-time control in dynamical systems, including receding horizon control and delayed inputs, 
+        DiffuseLoco is capable of reproducing multimodality in performing various locomotion skills, zero-shot transfer to real quadrupedal robots, 
+        and it can be deployed on edge computing devices. Furthermore, DiffuseLoco demonstrates free transitions between skills and robustness against environmental variations. 
+        Through extensive benchmarking in real-world experiments, DiffuseLoco exhibits better stability and velocity tracking performance compared to prior reinforcement learning and non-diffusion-based behavior cloning baselines. 
+        The design choices are validated via comprehensive ablation studies. This work opens new possibilities for scaling up learning-based legged locomotion controllers through the scaling of large, 
+        expressive models and diverse offline datasets.
+      </p>
     </div>
-  </div>
-
-  <div class="container">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-2">Abstract</h2>
-        <div class="content has-text-justified">
-          <p class="abstract-text">
-            This work introduces <strong>DiffuseLoco</strong>, a framework for training multi-skill diffusion-based policies for dynamic legged locomotion from offline datasets, 
-            enabling real-time control of diverse skills on robots in the real world. Offline learning at scale has led to breakthroughs in computer vision, 
-            natural language processing, and robotic manipulation domains. However, scaling up learning for legged robot locomotion, especially with multiple 
-            skills in a single policy, presents significant challenges for prior online reinforcement learning methods. To address this challenge, 
-            we propose a novel, scalable framework that leverages diffusion models to directly learn from offline multimodal datasets with a diverse set of locomotion skills. 
-            With design choices tailored for real-time control in dynamical systems, including receding horizon control and delayed inputs, 
-            DiffuseLoco is capable of reproducing multimodality in performing various locomotion skills, zero-shot transfer to real quadrupedal robots, 
-            and it can be deployed on edge computing devices. Furthermore, DiffuseLoco demonstrates free transitions between skills and robustness against environmental variations. 
-            Through extensive benchmarking in real-world experiments, DiffuseLoco exhibits better stability and velocity tracking performance compared to prior reinforcement learning and non-diffusion-based behavior cloning baselines. 
-            The design choices are validated via comprehensive ablation studies. This work opens new possibilities for scaling up learning-based legged locomotion controllers through the scaling of large, 
-            expressive models and diverse offline datasets.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+  
     
+    <h2 class="mt-10 text-6xl py-10">Overview</h2>
+    <img class="w-full" src="static/workflow-diagram.png"/>
 
-<style>
-  .abstract-text { font-size: 1.5rem; }
-  @media (max-width: 767px) { .abstract-text { font-size: 0.9rem; } }
-</style>
-
-<section class="section">
-  <div class="container">
-    <h2 class="title is-2" style="text-align: center;">Multi-modal Locomotion Trained Entirely Offline</h2>
-    <div class="columns is-centered">
-      <div class="column is-full-width is-centered has-text-centered">
+    <h2 class="mt-10 text-6xl py-10">Multi-modal Locomotion Trained Entirely Offline</h2>
+    <div class="flex">
+      <div class="basis-1/2">
         <video autoplay loop muted playsinline src="./static/videos/walk_straight.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
       </div>
-      <div class="column is-full-width is-centered has-text-centered">
+      <div class="basis-1/2">
         <video autoplay loop muted playsinline src="./static/videos/walk_sideward.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <h2 class="title is-2" style="text-align: center;">Smooth Transitioning</h2>
+    <h2 class="mt-10 text-6xl py-10">Smooth Transitioning</h2>
     <div id="results-carousel" class="carousel results-carousel">
       <div class="item item-steve">
         <div class="column is-full-width is-centered has-text-centered">
@@ -219,12 +136,8 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <h2 class="title is-2" style="text-align: center;">Robustness Learnt from Offline Data</h2>
+    <h2 class="mt-10 text-6xl py-10">Robustness Learnt from Offline Data</h2>
     <div class="columns is-centered">
       <div class="column is-full-width is-centered has-text-centered">
         <video autoplay loop muted playsinline src="./static/videos/reset.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
@@ -233,12 +146,8 @@
         <video autoplay loop muted playsinline src="./static/videos/reset2.mp4" poster="./static/videos/loading-icon.gif" style="border: 1px solid #bbb; border-radius: 10px; margin: 1.0%;"></video>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <h2 class="title is-2" style="text-align: center;">Compare with Baselines</h2>
+    
+    <h2 class="mt-10 text-6xl py-10">Compare with Baselines</h2>
     <div id="results-carousel" class="carousel results-carousel">
       <div class="item item-steve">
         <div class="column is-full-width is-centered has-text-centered">
@@ -265,14 +174,9 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
 
 
-
-<section class="section">
-  <div class="container">
-    <h2 class="title is-2" style="text-align: center;">Ablation Studies</h2>
+    <h2 class="mt-10 text-6xl py-10">Ablation Studies</h2>
     <div id="results-carousel" class="carousel results-carousel">
       <div class="item item-steve">
           <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/failure_1.mp4"></video>
@@ -284,51 +188,26 @@
         <video poster="./static/videos/loading-icon.gif" autoplay muted loop playsinline height="100%" src="./static/videos/failure_3.mp4"></video>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-2">Acknowledgement</h2>
-        <div class="content has-text-justified">
-          <p style="font-size: 1.5rem;">
-            This work was supported in part by NSF 2303735 for POSE, 
-            in part byNSF 2238346 for CAREER, in part by The AI
-            Institute and in part byInnoHK of the Government of the Hong
-            Kong Special AdministrativeRegion via the Hong Kong Centre
-            for Logistics Robotics.
-          </p>
-        </div>
-      </div>
+    
+    <h2 class="mt-10 text-6xl py-10">Acknowledgement</h2>
+    <div class="text-xl">
+      This work was supported in part by NSF 2303735 for POSE, 
+      in part byNSF 2238346 for CAREER, in part by The AI
+      Institute and in part byInnoHK of the Government of the Hong
+      Kong Special AdministrativeRegion via the Hong Kong Centre
+      for Logistics Robotics.
     </div>
-  </div>
-</section>
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code> @misc{huang2024diffuseloco,
-      title={DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets}, 
-      author={Xiaoyu Huang and Yufeng Chi and Ruofeng Wang and Zhongyu Li and Xue Bin Peng and Sophia Shao and Borivoje Nikolic and Koushil Sreenath},
-      year={2024},
-      eprint={2404.19264},
-      archivePrefix={arXiv},
-      primaryClass={cs.RO},
-      url={https://arxiv.org/abs/2404.19264}, 
-} </code></pre>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <p>Page template borrowed from <a href="https://nerfies.github.io/"><span class="dnerf">Nerfies</span></a>.</p>
-    </div>
-  </div>
-</footer>
+    <h2 class="mt-10 text-6xl py-10">Citation</h2>
+    <pre><code>@misc{huang2024diffuseloco,
+  title={DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets},
+  author={Xiaoyu Huang and Yufeng Chi and Ruofeng Wang and Zhongyu Li and Xue Bin Peng and Sophia Shao and Borivoje Nikolic and Koushil Sreenath},
+  year={2024},
+  eprint={2404.19264},
+  archivePrefix={arXiv},
+  primaryClass={cs.RO},
+  url={https://arxiv.org/abs/2404.19264},
+}</code></pre>
 
 </body>
 </html>
