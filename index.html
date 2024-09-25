@@ -21,7 +21,7 @@
 
   <div class="container mx-auto px-10">
     <div class="mt-8 md:mt-20 w-full">
-      <h1 class="text-3xl md:text-5xl text-left w-full">DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets</h1>
+      <h1 class="text-2xl md:text-5xl text-left w-full">DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets</h1>
       <p class="md:text-2xl mt-8">
         <a class="text-blue-500" href="https://scholar.google.com/citations?user=G-x_szsAAAAJ&hl=en">Xiaoyu Huang</a>,
         <a class="text-blue-500" href="https://chiyufeng.me/">Yufeng Chi</a>,
@@ -33,6 +33,7 @@
         <a class="text-blue-500" href="https://hybrid-robotics.berkeley.edu/koushil/">Koushil Sreenath</a>
       </p>
     </div>
+    <div class="md:text-2xl mt-6">CoRL 2024</div>
     
     <div class="flex flex-row flex-wrap justify-center my-8">
       <a class="flex-initial border rounded-full border-black px-2 py-1 m-1 md:m-10 hover:bg-gray-200" href="./static/paper/diffuseloco.pdf">
@@ -63,9 +64,9 @@
 
     <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/JAWPT5oWID4?si=FpP4C6uyUrG8tW-6&start=2&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen autoplay></iframe>
 
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Abstract</h2>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Abstract</h2>
     <div class="content has-text-justified">
-      <p class="md:text-2xl font-light">
+      <p class="md:text-lg font-light">
         This work introduces <strong>DiffuseLoco</strong>, a framework for training multi-skill diffusion-based policies for dynamic legged locomotion from offline datasets, 
         enabling real-time control of diverse skills on robots in the real world. Offline learning at scale has led to breakthroughs in computer vision, 
         natural language processing, and robotic manipulation domains. However, scaling up learning for legged robot locomotion, especially with multiple 
@@ -80,66 +81,165 @@
       </p>
     </div>
   
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Overview</h2>
-    <img class="w-full md:w-3/4 mx-auto" src="workflow-diagram.png"/>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Overview</h2>
+    <img class="w-full md:w-2/3 mx-auto" src="workflow-diagram.png"/>
 
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Multi-modal Locomotion Trained Entirely Offline</h2>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Multi-modal Locomotion Trained Entirely Offline</h2>
     <div class="flex flex-none flex-wrap">
       <div class="basis-full md:basis-1/5 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/bump_1.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/bump_1.mp4" poster="./static/loading.gif"></video>
       </div>
       <div class="basis-full md:basis-1/5 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/jump_1.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/jump_1.mp4" poster="./static/loading.gif"></video>
       </div>
       <div class="basis-full md:basis-1/5 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/pace_1.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/pace_1.mp4" poster="./static/loading.gif"></video>
       </div>
       <div class="basis-full md:basis-1/5 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/stand_1.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/stand_1.mp4" poster="./static/loading.gif"></video>
       </div>
       <div class="basis-full md:basis-1/5 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/trot_1.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/trot_1.mp4" poster="./static/loading.gif"></video>
       </div>
     </div>
 
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Smooth Transitioning</h2>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Smooth Transitioning</h2>
     <div class="flex flex-none flex-wrap">
       <div class="basis-full md:basis-1/2 p-2">
-        <video autoplay muted loop playsinline src="./static/videos/skills_2_1.mp4"></video>
+        <video autoplay muted loop playsinline src="./static/videos/skills_2_1.mp4" poster="./static/loading.gif"></video>
       </div>
       <div class="basis-full md:basis-1/2 p-2">
-        <video autoplay muted loop playsinline src="./static/videos/skills_3_1.mp4"></video>
+        <video autoplay muted loop playsinline src="./static/videos/skills_3_1.mp4" poster="./static/loading.gif"></video>
       </div>
     </div>
 
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Robustness Learnt from Offline Data</h2>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Robustness Learnt from Offline Data</h2>
     <div class="flex flex-none flex-wrap">
       <div class="basis-full md:basis-1/2 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/grass.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/grass.mp4" poster="./static/loading.gif"></video>
       </div>
       <div class="basis-full md:basis-1/2 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/board_and_matt.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/board_and_matt.mp4" poster="./static/loading.gif"></video>
       </div>
       <div class="basis-full md:basis-1/2 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/woodenboard.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/woodenboard.mp4" poster="./static/loading.gif"></video>
       </div>
       <div class="basis-full md:basis-1/2 p-2">
-        <video autoplay loop muted playsinline src="./static/videos/floor.mp4"></video>
+        <video autoplay loop muted playsinline src="./static/videos/floor.mp4" poster="./static/loading.gif"></video>
       </div>
     </div>
     
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Compare with Baselines</h2>
-    <div class="flex flex-none flex-wrap">
-      <div class="basis-full md:basis-1/2 p-2">
-        <video autoplay muted loop playsinline src="./static/videos/uphill_backward_2.mp4"></video>
-      </div>
-      <div class="basis-full md:basis-1/2 p-2">
-        <video autoplay muted loop playsinline src="./static/videos/downhill_backward_1.mp4"></video>
-      </div>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Compare with Baselines</h2>
+    <div class="flex flex-none flex-wrap overflow-x-auto">
+      <table class="table-auto w-full text-center leading-relaxed md:text-lg md:leading-loose">
+        <thead>
+          <tr>
+            <th class="border-t-4 border-b-4 min-w-36">Goal (Task)</th>
+            <th class="border-t-4 border-b-4 min-w-36">Metric</th>
+            <th class="border-t-4 border-b-4 min-w-36" title="Adversarial Motion Prior">AMP</th>
+            <th class="border-t-4 border-b-4 min-w-36" title="AMP with History Input">AMP w/ H</th>
+            <th class="border-t-4 border-b-4 min-w-36" title="Transformer">TF</th>
+            <th class="border-t-4 border-b-4 min-w-36" title="Transformer with Receding Horizon Control">TF w/ RHC</th>
+            <th class="border-t-4 border-b-4 min-w-36">DiffuseLoco (Ours)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>0.3m/s Forward</th>
+            <td>Stability (%)</td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+            <td>80</td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+          </tr>
+          <tr>
+            <th class="border-b-4"></th>
+            <td class="border-b-4">E<sub>v</sub></td>
+            <td class="border-b-4">90.44 ± 1.87</td>
+            <td class="border-b-4">90.63 ± 4.79</td>
+            <td class="border-b-4">75.75 ± 6.07</td>
+            <td class="border-b-4">39.28 ± 2.34</td>
+            <td class="border-b-4"><b>33.22 ± 12.48</b></td>
+          </tr>
+          <tr>
+            <th>0.5m/s Forward</th>
+            <td>Stability (%)</td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+          </tr>
+          <tr>
+            <th class="border-b-4"></th>
+            <td class="border-b-4">E<sub>v</sub></td>
+            <td class="border-b-4">50.44 ± 1.97</td>
+            <td class="border-b-4">46.29 ± 2.55</td>
+            <td class="border-b-4">54.35 ± 2.66</td>
+            <td class="border-b-4">37.46 ± 5.31</td>
+            <td class="border-b-4"><b>12.91 ± 6.84</b></td>
+          </tr>
+          <tr>
+            <th>0.7m/s Forward</th>
+            <td>Stability (%)</td>
+            <td>0</td>
+            <td>20</td>
+            <td>0</td>
+            <td>40</td>
+            <td><b>100</b></td>
+          </tr>
+          <tr>
+            <th class="border-b-4"></th>
+            <td class="border-b-4">E<sub>v</sub></td>
+            <td class="border-b-4"><s>fail 5/5</s></td>
+            <td class="border-b-4">54.96 ± 0.00</td>
+            <td class="border-b-4"><s>fail 5/5</s></td>
+            <td class="border-b-4">39.36 ± 5.02</td>
+            <td class="border-b-4"><b>24.80 ± 8.91</b></td>
+          </tr>
+          <tr>
+            <th>Turn Left</th>
+            <td>Stability (%)</td>
+            <td>20</td>
+            <td><b>100</b></td>
+            <td>0</td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+          </tr>
+          <tr>
+            <th class="border-b-4"></th>
+            <td class="border-b-4">E<sub>v</sub></td>
+            <td class="border-b-4">20.96 ± 0.00</td>
+            <td class="border-b-4">33.39 ± 6.96</td>
+            <td class="border-b-4"><s>fail 5/5</s></td>
+            <td class="border-b-4">13.41 ± 5.02</td>
+            <td class="border-b-4"><b>12.79 ± 5.64</b></td>
+          </tr>
+          <tr>
+            <th>Turn Right</th>
+            <td>Stability (%)</td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+            <td><b>100</b></td>
+            <td>80</td>
+            <td><b>100</b></td>
+          </tr>
+          <tr>
+            <th class="border-b-4"></th>
+            <td class="border-b-4">E<sub>v</sub></td>
+            <td class="border-b-4">18.61 ± 2.40</td>
+            <td class="border-b-4">33.39 ± 6.96</td>
+            <td class="border-b-4">25.86 ± 1.47</td>
+            <td class="border-b-4">8.69 ± 5.04</td>
+            <td class="border-b-4"><b>2.22 ± 1.03</b></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
 
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Ablation Studies</h2>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Ablation Studies</h2>
     <div class="flex flex-none flex-wrap">
       <div class="basis-full md:basis-1/3 p-2">
         <video autoplay muted loop playsinline src="./static/videos/failure_1.mp4"></video>
@@ -152,12 +252,12 @@
       </div>
     </div>
     
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Acknowledgement</h2>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Acknowledgement</h2>
     <div class="md:text-xl">
       This work was supported in part by NSF 2303735 for POSE, in part by NSF 2238346 for CAREER, in part by The AI Institute and in part by InnoHK of the Government of the Hong Kong Special Administrative Region via the Hong Kong Centre for Logistics Robotics.
     </div>
 
-    <h2 class="mt-10 text-3xl md:text-5xl py-10">Citation</h2>
+    <h2 class="mt-10 text-xl md:text-5xl py-3 md:py-10">Citation</h2>
     <pre>
       <code>@misc{huang2024diffuseloco,
   title={DiffuseLoco: Real-Time Legged Locomotion Control with Diffusion from Offline Datasets},
